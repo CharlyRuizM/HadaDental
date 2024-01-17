@@ -1,8 +1,7 @@
 document.getElementById('searchButton').addEventListener('click', function() {
     var userEmail = document.getElementById('userEmail').value;
     
-    // Validación básica de formato de correo electrónico
-    if (userEmail && /^\S+@\S+\.\S+$/.test(userEmail)) {
+    if (userEmail) {
         fetch('https://hooks.zapier.com/hooks/catch/12589050/3wnyhbi/', {
             method: 'POST',
             headers: {
@@ -10,9 +9,9 @@ document.getElementById('searchButton').addEventListener('click', function() {
             },
             body: JSON.stringify({ email: userEmail })
         })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('result').innerHTML = 'Datos encontrados: ' + JSON.stringify(data);
+        .then(response => response.text()) // Asumiendo que la respuesta es texto
+        .then(result => {
+            document.getElementById('result').innerHTML = 'Datos encontrados: ' + result;
         })
         .catch(error => {
             console.error('Error:', error);
