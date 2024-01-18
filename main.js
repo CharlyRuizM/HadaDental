@@ -2,24 +2,15 @@ document.getElementById('searchButton').addEventListener('click', function() {
     var userEmail = document.getElementById('userEmail').value;
     
     if (userEmail) {
-        // Asegúrate de reemplazar esta URL con la URL de tu webhook de Zapier
-        var zapierUrl = 'https://hooks.zapier.com/hooks/catch/12589050/3wnyhbi/';
+        var url = 'https://hooks.zapier.com/hooks/catch/12589050/3wnyhbi/?email=' + encodeURIComponent(userEmail);
 
-        fetch(zapierUrl, {
+        fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: userEmail })
+            redirect: 'follow'
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // o response.text() si la respuesta es texto
-        })
+        .then(response => response.json()) // Cambiado para manejar una respuesta JSON
         .then(data => {
-            // Aquí manejas los datos recibidos. Ajusta según la estructura de tu respuesta.
+            console.log(data); // Muestra los datos en la consola
             document.getElementById('result').innerHTML = 'Nombre: ' + data.Nombre + ', Total Puntos: ' + data.totalPuntos;
         })
         .catch(error => {

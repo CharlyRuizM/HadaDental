@@ -2,19 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Consulta de Datos</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Asegúrate de enlazar tu archivo CSS aquí -->
+    <title>Consulta en Airtable</title>
 </head>
 <body>
-
-    <div class="form-container">
-        <input type="email" id="userEmail" placeholder="Introduce tu correo electrónico">
-        <button id="searchButton">Buscar</button>
-    </div>
-
+    <h1>Buscar Usuario</h1>
+    <form id="searchForm">
+        <input type="email" id="emailInput" placeholder="Ingrese su correo" required>
+        <button type="submit">Buscar</button>
+    </form>
     <div id="result"></div>
 
-    <script src="main.js"></script> <!-- Asegúrate de enlazar tu archivo JavaScript aquí -->
-
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('emailInput').value;
+            fetch('https://northamerica-northeast1-hadadental.cloudfunctions.net/functionHadaDental', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Respuesta de servidor no fue OK');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const result = data.map(user => `Nombre: ${user.Nombre}, Puntos Totales: ${user.Puntos_Totales}`).join('<br>');
+                document.getElementById('result').innerHTML = result;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'Error en la búsqueda';
+            });
+        });
+    </script>
 </body>
 </html>
