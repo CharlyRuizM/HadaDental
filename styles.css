@@ -1,32 +1,48 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
     text-align: center;
-    padding: 20px;
+    margin-top: 20px;
 }
 
-.form-container {
-    margin: 20px;
+#searchForm {
+    text-align: center;
+    margin-top: 20px;
 }
 
-#userEmail {
-    padding: 8px;
-    margin-right: 5px;
-}
-
-#searchButton {
-    padding: 8px 15px;
-    background-color: #4CAF50;
-    color: white;
+input[type="email"] {
+    width: 80%;
+    padding: 10px;
     border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
 }
 
-#searchButton:hover {
-    background-color: #45a049;
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
 #result {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
     margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
 }
